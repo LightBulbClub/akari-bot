@@ -503,17 +503,17 @@ async def _(msg: Bot.MessageSession):
 db = module("database", alias="db", required_superuser=True, base=True, doc=True)
 
 
-@db.command("list")
+@db.command("model")
 async def _(msg: Bot.MessageSession):
     models_path = ["core.database.models"] + fetch_module_db()
     table_lst = sorted(get_model_names(models_path))
     await msg.finish([I18NContext("core.message.database.list")] + table_lst)
 
 
-@db.command("field <dbmodel> [--legacy]")
-async def _(msg: Bot.MessageSession, dbmodel: str):
+@db.command("field <model> [--legacy]")
+async def _(msg: Bot.MessageSession, model: str):
     models_path = ["core.database.models"] + fetch_module_db()
-    result = get_model_fields(models_path, dbmodel)
+    result = get_model_fields(models_path, model)
 
     if not result:
         await msg.finish(I18NContext("core.message.database.no_result"))
