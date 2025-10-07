@@ -29,11 +29,11 @@ class TodayWifeInfo(DBModel):
         exist_info = await cls.get_or_none(sender_id=sender_id)
         if exist_info and exist_info.timestamp.date() != datetime.now().date():
             await exist_info.delete()
-        elif exist_info.count < 5:
+        elif exist_info and exist_info.count < 5:
             exist_info.count += 1
             await exist_info.save()
             return True
-        else:
+        elif exist_info and exist_info.count == 5:
             return False
         new_info = (await cls.get_or_create(sender_id=sender_id, name=name, count=0))[0]
         await new_info.save()
