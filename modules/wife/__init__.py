@@ -7,7 +7,7 @@ from .database.models import TodayWifeInfo
 from datetime import datetime
 import os, random
 
-wif = module('wife', ["waifu","jrlp"], "{{I18N:wife.help}}")
+wif = module('wife', ["waifu","jrlp"], "{I18N:wife.help}")
 
 assets = assets_path / "modules" / "wife"
 
@@ -18,7 +18,7 @@ async def _(msg: Bot.MessageSession):
     _id = msg.session_info.sender_id
     random.seed(_id+str(datetime.now()))
     chose = random.sample(wife_names, 1)[0]
-    db = await TodayWifeInfo(sender_id=_id, name=chose, count=0).get_or_none()
+    db = await TodayWifeInfo.get_or_none(sender_id=_id)
     wife_now = "琪露诺.png"
     if db:
         wife_now = db.wife_name
