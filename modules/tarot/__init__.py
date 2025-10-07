@@ -2,13 +2,14 @@ import random
 import orjson
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from PIL import Image as PImage
 
 from core.builtins.bot import Bot
 from core.builtins.message.internal import Plain, Image
 from core.component import module
 from core.constants import assets_path
 
-trt = module("tarot", desc="今日塔罗牌🥳")
+trt = module("tarot", desc="今日塔罗牌🥳", developers=["haoye_qwq"])
 
 assets = assets_path / "modules" / "tarot"
 
@@ -24,14 +25,17 @@ async def tarot(msg: Bot.MessageSession):
     random.seed(userseed)
     pn = random.randint(0,1)
     your_card:dict = random.sample(cards, 1)[0]
-    send = await msg.send_message(
+    image = PImage.open(assets / your_card.get('imageName'))
+    send1 = await msg.send_message(
         [
             Plain(your_card.get('name')),
+            Plain('正位' if pn == 1 else '逆位'),
             Plain(your_card.get('positive' if pn == 1 else 'negative')),
-            Image(assets / your_card.get('imageName')),
             Plain('[90秒后撤回]')
         ]
     )
+    send2 = await msg.send_message(Image(image if pn == 1 else image.rotate(180)),quote=False)
     await msg.sleep(90)
-    await send.delete()
+    await send1.delete()
+    await send2.delete()
 

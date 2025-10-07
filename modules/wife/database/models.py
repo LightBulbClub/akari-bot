@@ -31,6 +31,7 @@ class TodayWifeInfo(DBModel):
             await exist_info.delete()
         elif exist_info and exist_info.count < 5:
             exist_info.count += 1
+            exist_info.wife_name = name
             await exist_info.save()
             return True
         elif exist_info and exist_info.count == 5:
