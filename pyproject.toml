@@ -112,3 +112,8 @@ aggressive = 3
 
 [tool.pyright]
 reportUndefinedVariable = "error"
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+priority = "primary"

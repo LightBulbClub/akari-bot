@@ -23,5 +23,5 @@ async def _(msg: Bot.MessageSession):
     if db:
         wife_now = db.wife_name
     if await TodayWifeInfo.get_wife(sender_id=_id, name=chose):
-        msg.finish([I18NContext("wife.message.success"), Plain(chose), Image(assets / chose)])
-    msg.finish([I18NContext("wife.message.failure"), Plain(wife_now), Image(assets / wife_now)])
+        await msg.finish([I18NContext("wife.message.success"), Plain(chose), Image(assets / chose)])
+    await msg.finish([I18NContext("wife.message.failure"), Plain(wife_now), Image(assets / wife_now)])
