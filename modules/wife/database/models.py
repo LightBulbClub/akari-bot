@@ -35,7 +35,7 @@ class TodayWifeInfo(DBModel):
             return True
         elif exist_info and exist_info.count == 5:
             return False
-        new_info = (await cls.get_or_create(sender_id=sender_id, name=name, count=0))[0]
+        new_info = (await cls.get_or_create(sender_id=sender_id, wife_name=name, count=0))[0]
         await new_info.save()
         return True
 
