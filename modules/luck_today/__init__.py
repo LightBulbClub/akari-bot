@@ -39,16 +39,11 @@ async def luck_today(msg: Bot.MessageSession):
 
     selected_range = random.choices(ranges, weights=weights, k=1)[0]
     rp = random.randint(selected_range[0], selected_range[1])
-    message_str = next(
-        (desc
-         for i,desc in special.items()
-         if rp == i),
-        (
-            desc
-            for (low, high), desc in mapping.items()
-            if low <= rp <= high
-        )
-    )
-    await msg.send_message(message_str)
+    for i, desc in special.items():
+        if rp == i:
+            await msg.finish(f"你今天的人品值是：{rp}{desc}")
+    for (low, high), desc in mapping.items():
+        if low <= rp <= high:
+            await msg.finish(f"你今天的人品值是：{rp}{desc}")
 
 
