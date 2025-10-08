@@ -35,7 +35,7 @@ async def waifu(msg: Bot.MessageSession, change: bool):
         if await TodayWifeInfo.get_wife(sender_id=_id, name=chose):
             await msg.finish([I18NContext("wife.message.success"), Plain(chose.split('.')[0]), Image(assets / chose)])
         await msg.finish([I18NContext("wife.message.failure"), Plain(wife_now.split('.')[0]), Image(assets / wife_now)])
-    await msg.finish([Plain("你今天的老婆是"), Plain(wife_now.split('.')[0]), Image(assets / chose)])
+    await msg.finish([Plain("你今天的老婆是"), Plain(wife_now.split('.')[0]), Image(assets / wife_now)])
 
 
 @wif.command("{{I18N:wife.help}}")
