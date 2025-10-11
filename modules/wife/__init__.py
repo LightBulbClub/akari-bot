@@ -28,10 +28,10 @@ async def waifu(msg: Bot.MessageSession, change: bool):
     random.seed(_id + str(datetime.now()))
     chose = random.sample(wife_names, 1)[0]
     db = await TodayWifeInfo.get_or_none(sender_id=_id)
-    wife_now = "琪露诺.png"
+    wife_now = None
     if db:
         wife_now = db.wife_name
-    if change and db:
+    if change or not db:
         if await TodayWifeInfo.get_wife(sender_id=_id, name=chose):
             await msg.finish([I18NContext("wife.message.success"), Plain(chose.split('.')[0]), Image(assets / chose)])
         await msg.finish([I18NContext("wife.message.failure"), Plain(wife_now.split('.')[0]), Image(assets / wife_now)])
